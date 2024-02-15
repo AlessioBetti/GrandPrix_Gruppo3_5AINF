@@ -15,11 +15,12 @@ import java.util.Random;
  */
 public class GrandPrix_Gruppo3_5AINF {
 
-    /**
-     * @param args the command line arguments
-     */
    
     public static void main(String[] args) {
+        
+        /**
+         * dichiarazione delle variabili
+         */
         
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader keyboard = new BufferedReader(input);
@@ -33,6 +34,9 @@ public class GrandPrix_Gruppo3_5AINF {
         Random random = new Random();
         
         
+        /**
+         * inserimento credenziali
+         */
         System.out.println("Ciao! Benvenuto al Grand Prix del 2024!\n\n");
         System.out.println("Inserisci le tue credenziali di accesso:\n");
         System.out.println("Username: \n");
@@ -50,6 +54,11 @@ public class GrandPrix_Gruppo3_5AINF {
         }
         
         Giocatore giocatore1 = new Giocatore(username, password);
+        
+        
+        /**
+         * porzione dedicata alla selezione delle caratteristiche del circuito
+         */
         
         System.out.println("DEFINIZIONE DEL TRACCIATO\n");       
         System.out.println("Inserisci quanto desideri che il tracciato sia lungo\n");
@@ -80,6 +89,10 @@ public class GrandPrix_Gruppo3_5AINF {
            System.err.println("errore in input!");
         }
         
+        /**
+         * selezione della scuderia con cui gareggiare da parte dell'utente e anche 
+         * del numero di macchine contro cui gareggiare
+         */
         System.out.println("__________________________________________________________________________ \n");
         System.out.println("SELEZIONE AUTOMOBILI\n");
         System.out.println("Quale scuderia vuoi utilizzare? \n");
@@ -102,11 +115,20 @@ public class GrandPrix_Gruppo3_5AINF {
            System.err.println("errore in input!");
         }
         
+        
+        /**
+         * si istanzia un array di tipo Pilota, di grandezza pari al numero di automobili
+         */
         Pilota [] piloti = new Pilota[nMacchine];
         
+        /**
+         * questo ciclo consente di istanziare tanti oggetti della classe Pilota quanti sono richiesti
+         * dal giocatore, assegnando come nome una stringa concatenata alla variabile i, che incrementa
+         * ad ogni ciclo effettuato, mentre come velocità assegna un valore randomico che va da 200 a 310
+         */
         for (int i = 0; i < nMacchine; i++){
             String nomeCPU = "giocatore" + i;
-            int velocitaCPU = random.nextInt(310);
+            int velocitaCPU = (int)Math.floor(Math.random() * (200 - 310 + 1) + 200);
             piloti[i] = new Pilota(nomeCPU, velocitaCPU);
         }
         

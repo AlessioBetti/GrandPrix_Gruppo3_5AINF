@@ -13,6 +13,13 @@ public class Pilota extends Thread {
     String scuderia;
     int velocita;
     
+    
+    /**
+     * 
+     * @param nome
+     * @param scuderia 
+     */
+    
     public Pilota (String nome, String scuderia){
         this.nome = nome;
         this.scuderia = scuderia;
@@ -27,6 +34,15 @@ public class Pilota extends Thread {
     public void run(){
     }
     
+    
+    /**
+     * 
+     * @return velocita
+     * Il metodo riceve il nome della scuderia scelto dal giocatore, trasforma
+     * i caratteri della stringa in caratteri maiuscoli, rimuove eventuali spazi
+     * inseriti dall'utente e successivamente ricava la velocità della macchina, ritornando
+     * il valore di essa
+     */
     public int velocitaAuto (){
         String scuderiaSelezionata = this.scuderia;
         
