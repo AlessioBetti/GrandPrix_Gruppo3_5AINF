@@ -9,8 +9,7 @@ package grandprix_gruppo3_5ainf;
  * @author user
  */
 public class Giocatore {
-    String nome;
-    String cognome;
+    String username;
     String pwd;
     
     /**
@@ -19,9 +18,8 @@ public class Giocatore {
      * @param pwd
      */
     
-    public Giocatore(String nome, String cognome, String pwd){
-        this.nome = nome;
-        this.cognome = cognome;
+    public Giocatore(String username, String pwd){
+        this.username = username;
         this.pwd = pwd;
     }
        
