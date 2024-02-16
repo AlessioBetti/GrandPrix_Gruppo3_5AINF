@@ -31,7 +31,7 @@ public class Pilota extends Thread {
     }
     
     @Override
-    public void run(){
+    public void run() {
     }
     
     
@@ -73,7 +73,7 @@ public class Pilota extends Thread {
             case "ALPINE":
                 velocita = 250;
                 break;
-            case "ALFA ROMEO":
+            case " KICK-SAUBER":
                 velocita = 245;
                 break;
             case "HAAS":
