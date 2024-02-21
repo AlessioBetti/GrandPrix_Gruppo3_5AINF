@@ -5,6 +5,7 @@
 package grandprix_gruppo3_5ainf;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
@@ -24,14 +25,15 @@ public class GrandPrix_Gruppo3_5AINF {
         
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader keyboard = new BufferedReader(input);
-        int lunghezzaTracciato;
-        int nPitstop;
-        int nGiri;
+        int lunghezzaTracciato = 0;
+        int nPitstop = 0;
+        int nGiri = 0;
         int nMacchine = 0;
         String username = "";
         String password = "";
         String sceltaScuderia = "";
         Random random = new Random();
+        ArrayList<String> classificaFinale = new ArrayList<String>();
         
         
         /**
@@ -66,7 +68,7 @@ public class GrandPrix_Gruppo3_5AINF {
 
         try {
             String numero = keyboard.readLine();
-            lunghezzaTracciato = Integer.valueOf(numero).intValue();
+            lunghezzaTracciato = Integer.parseInt(numero);
         } catch (IOException ex) {
            System.err.println("errore in input!");
         }
@@ -75,7 +77,7 @@ public class GrandPrix_Gruppo3_5AINF {
         
         try {
             String numero = keyboard.readLine();
-            nGiri = Integer.valueOf(numero).intValue();
+            nGiri = Integer.parseInt(numero);
         } catch (IOException ex) {
            System.err.println("errore in input!");
         }
@@ -84,10 +86,12 @@ public class GrandPrix_Gruppo3_5AINF {
         
         try {
             String numero = keyboard.readLine();
-            nPitstop = Integer.valueOf(numero).intValue();
+            nPitstop = Integer.parseInt(numero);
         } catch (IOException ex) {
            System.err.println("errore in input!");
         }
+        
+        
         
         /**
          * selezione della scuderia con cui gareggiare da parte dell'utente e anche 
@@ -103,19 +107,29 @@ public class GrandPrix_Gruppo3_5AINF {
            System.err.println("errore in input!");
         }
         
-        Pilota pilotaUser = new Pilota(username, sceltaScuderia);
+        Pilota pilotaSetter = new Pilota(username, sceltaScuderia);
         
-        int velocitaUser = pilotaUser.velocitaAuto();
+        /*
+        pilotaSetter.setLunghezza(lunghezzaTracciato);
+        pilotaSetter.setGiri(nGiri);
+        pilotaSetter.setPitStop(nPitstop);*/
+        
+        int velocitaUser = pilotaSetter.velocitaAuto();
+        
+        
+        
+        
         
         System.out.println("con quante macchine vorresti gareggiare?\n");
         try {
            String numero = keyboard.readLine();
-           nMacchine = Integer.valueOf(numero).intValue();
+           nMacchine = Integer.parseInt(numero);
         } catch (IOException ex) {
            System.err.println("errore in input!");
         }
         
-        
+        Circuito c1 = new Circuito(lunghezzaTracciato, nGiri, nPitstop, nMacchine);
+        Pilota pilotaUser = new Pilota (username, sceltaScuderia, velocitaUser, c1);
         /**
          * si istanzia un array di tipo Pilota, di grandezza pari al numero di automobili
          */
@@ -124,16 +138,49 @@ public class GrandPrix_Gruppo3_5AINF {
         /**
          * questo ciclo consente di istanziare tanti oggetti della classe Pilota quanti sono richiesti
          * dal giocatore, assegnando come nome una stringa concatenata alla variabile i, che incrementa
-         * ad ogni ciclo effettuato, mentre come velocità assegna un valore randomico che va da 200 a 310
+         * ad ogni ciclo effettuato, mentre come velocità assegna un valore randomico che va da 220 a 310
          */
+        System.out.println("\nLista piloti:\n");
         for (int i = 0; i < nMacchine; i++){
-            String nomeCPU = "giocatore" + i;
-            int velocitaCPU = (int)Math.floor(Math.random() * (200 - 310 + 1) + 200);
-            piloti[i] = new Pilota(nomeCPU, velocitaCPU);
+            String nomeCPU = "pilotaCPU-" + (i+1);
+            int velocitaCPU = random.nextInt(100)+210;
+            piloti[i] = new Pilota(nomeCPU, velocitaCPU, c1);
+            System.out.println(nomeCPU + " - " + velocitaCPU);
         }
         
         
-            
+        /**
+         * inizio della gara
+         * attraverso questo ciclo, viene iniziata l'esecuzione di ogni thread della classe Pilota
+         */
+        System.out.println("\nINIZIO DELLA COMPETIZIONE!\n");
+        pilotaUser.start(); 
+        for (int i = 0; i < nMacchine; i++){
+            piloti[i].start();
+        }
+        
+        try {
+            pilotaUser.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GrandPrix_Gruppo3_5AINF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0; i < nMacchine; i++){
+            try {
+                piloti[i].join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GrandPrix_Gruppo3_5AINF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        
+        
+        System.out.println("\nCLASSIFICA FINALE\n");
+        pilotaSetter.classifica();
+                
+        
+        
     }
     
 }

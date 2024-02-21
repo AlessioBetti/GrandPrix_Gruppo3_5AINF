@@ -4,6 +4,10 @@
  */
 package grandprix_gruppo3_5ainf;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -12,12 +16,14 @@ public class Pilota extends Thread {
     String nome;
     String scuderia;
     int velocita;
-    
+    Circuito circuito;
+    ArrayList<String> classifica = new ArrayList<String>();
     
     /**
      * 
      * @param nome
-     * @param scuderia 
+     * @param scuderia
+     * 
      */
     
     public Pilota (String nome, String scuderia){
@@ -25,14 +31,31 @@ public class Pilota extends Thread {
         this.scuderia = scuderia;
     }
     
-    public Pilota (String nome, int velocita){
+    public Pilota (String nome, String scuderia, int velocita, Circuito circuito){
+        this.nome = nome;
+        this.scuderia = scuderia;
+        this.velocita = velocita;
+        this.circuito = circuito;
+    }
+    
+    public Pilota (String nome, int velocita, Circuito circuito){
         this.nome = nome;
         this.velocita = velocita;
+        this.circuito = circuito;
     }
+    
+    
+    public ArrayList getClassifica(){
+        return classifica;
+    }
+
     
     @Override
     public void run(){
+        gareggia(circuito);
     }
+    
+    
     
     
     /**
@@ -52,41 +75,70 @@ public class Pilota extends Thread {
         System.out.println(scuderiaUtente);
         
         switch (scuderiaUtente) {
-            case "FERRARI":
-                velocita = 280;
-                break;
-            case "MERCEDES":
-                velocita = 275;
-                break;
-            case "RED BULL":
-                velocita = 300 ;
-                break;
-            case "MCLAREN":
-                velocita = 265;
-                break;
-            case "ALPHATAURI":
-                velocita = 260;
-                break;
-            case "ASTON MARTIN":
-                velocita = 255;
-                break;
-            case "ALPINE":
-                velocita = 250;
-                break;
-            case "ALFA ROMEO":
-                velocita = 245;
-                break;
-            case "HAAS":
-                velocita = 240;
-                break;
-            case "WILLIAMS":
-                velocita = 235;
-                break;
-            default:
-                System.out.println("Scuderia non riconosciuta, velocità non definita.");
-                break;
+            case "FERRARI" -> velocita = 280;
+            case "MERCEDES" -> velocita = 275;
+            case "REDBULL" -> velocita = 300 ;
+            case "MCLAREN" -> velocita = 265;
+            case "ALPHATAURI" -> velocita = 260;
+            case "ASTONMARTIN" -> velocita = 255;
+            case "ALPINE" -> velocita = 250;
+            case "ALFAROMEO" -> velocita = 245;
+            case "HAAS" -> velocita = 240;
+            case "WILLIAMS" -> velocita = 235;
+            default -> System.out.println("Scuderia non riconosciuta, velocità non definita.");
         }
         return velocita;
     }
+    
+    /**
+     *
+     * @param circuito
+     */
+    public void gareggia(Circuito circuito){
+        int progressione = 0;
+        float percentage = 0;
+        int totDistanza;
+        totDistanza = circuito.lunghezza * circuito.nGiri;
+        while(progressione < totDistanza){
+            try {
+                sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Pilota.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            progressione += this.velocita;
+            
+            if(progressione > totDistanza){
+                progressione = totDistanza;
+            }
+            
+            percentage = (progressione*100)/totDistanza;
+            
+            Pilota.stampa(this.nome, progressione, percentage, classifica);
+            
+        }
+        
+    }
+    
+    public void classifica(){
+        System.out.println("dddddddddddddddddddddd\n");
+        for (int i = 0; i < classifica.size(); i++) {
+            System.out.println(classifica.get(i));
+        }
+    }
+    
+    public static synchronized void stampa(String nome, int progressione, float percentuale, ArrayList classifica){
+        System.out.println("----------------------");
+            System.out.println("Pilota: " + nome);
+            System.out.println("Progressione: " + progressione);
+            System.out.println("Percentuale di completamento: " + percentuale);
+            if(percentuale == 100){
+                System.out.println(nome + " HA TERMINATO LA GARA\n"); 
+                classifica.add(nome);
+            }
+        System.out.println("----------------------");
+        
+    }
+    
+    
     
 }

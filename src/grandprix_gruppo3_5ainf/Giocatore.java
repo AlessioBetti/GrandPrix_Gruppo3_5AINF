@@ -13,8 +13,7 @@ public class Giocatore {
     String pwd;
     
     /**
-     * @param nome
-     * @param cognome
+     * @param username
      * @param pwd
      */
     
