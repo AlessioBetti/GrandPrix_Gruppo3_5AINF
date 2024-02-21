@@ -124,6 +124,7 @@ public class Pilota extends Thread {
         for (int i = 0; i < classifica.size(); i++) {
             System.out.println(classifica.get(i));
         }
+        
     }
     
     public static synchronized void stampa(String nome, int progressione, float percentuale, ArrayList classifica){

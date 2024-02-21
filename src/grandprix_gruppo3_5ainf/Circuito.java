@@ -19,7 +19,7 @@ public class Circuito {
         this.lunghezza = lunghezza;
         this.nGiri = nGiri;
         this.nPitstop = nPitstop;
-        this.nPiloti = nPiloti;
+        this.nPiloti = nPiloti; 
     }
     
             
