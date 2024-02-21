@@ -177,7 +177,7 @@ public class GrandPrix_Gruppo3_5AINF {
         
         
         System.out.println("\nCLASSIFICA FINALE\n");
-        pilotaSetter.classifica();
+        pilotaSetter.classifica(); 
                 
         
         

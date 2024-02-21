@@ -135,7 +135,7 @@ public class Pilota extends Thread {
                 System.out.println(nome + " HA TERMINATO LA GARA\n"); 
                 classifica.add(nome);
             }
-        System.out.println("----------------------");
+        System.out.println("-----------------------");
         
     }
     

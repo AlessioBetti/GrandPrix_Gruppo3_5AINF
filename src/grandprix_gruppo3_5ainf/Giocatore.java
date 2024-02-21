@@ -19,7 +19,7 @@ public class Giocatore {
     
     public Giocatore(String username, String pwd){
         this.username = username;
-        this.pwd = pwd;
+        this.pwd = pwd; 
     }
        
 }

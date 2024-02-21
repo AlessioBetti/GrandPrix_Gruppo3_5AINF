@@ -17,7 +17,7 @@ public class Circuito {
     
     public Circuito(int lunghezza, int nGiri, int nPitstop, int nPiloti){
         this.lunghezza = lunghezza;
-        this.nGiri = nGiri;
+        this.nGiri = nGiri; 
         this.nPitstop = nPitstop;
         this.nPiloti = nPiloti;
     }
