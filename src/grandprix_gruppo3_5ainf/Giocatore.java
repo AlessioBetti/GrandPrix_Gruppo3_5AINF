@@ -21,5 +21,5 @@ public class Giocatore {
         this.username = username;
         this.pwd = pwd;
     }
-        
+       
 }
